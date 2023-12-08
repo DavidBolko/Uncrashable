@@ -11,7 +11,7 @@ public class MainWindow {
     public void run(){
         if(isGameRunning){
             this.mainMenu.close();
-            Game game = new Game();
+            new Game(this);
         }
         else{
             this.mainMenu.show();

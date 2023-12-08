@@ -1,25 +1,28 @@
-public class MainWindow {
+public class Root {
     private MainMenu mainMenu;
+    private Game game;
     private boolean isGameRunning;
-    public MainWindow() {
+    public Root() {
         this.isGameRunning = false;
         this.mainMenu = new MainMenu(this);
+        this.game = new Game(this);
 
         this.run();
     }
 
     public void run(){
-        if(isGameRunning){
-            this.mainMenu.close();
-            new Game(this);
-        }
-        else{
-            this.mainMenu.show();
-        }
+        isGameRunning = false;
+        this.mainMenu.show();
     }
 
-    public void setGameRunning(boolean value) {
-        isGameRunning = value;
-        this.run();
+    public void runGame(Difficulty difficulty){
+        isGameRunning = true;
+        this.mainMenu.close();
+        this.game.setDifficulty(difficulty);
+        this.game.startGame();
+    }
+
+    public boolean isGameRunning(){
+        return this.isGameRunning;
     }
 }

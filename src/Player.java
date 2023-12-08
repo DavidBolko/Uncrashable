@@ -3,6 +3,7 @@ public class Player {
     private int score;
     public Player() {
         this.car = new Car( 480,true, 2);
+        this.score = 0;
     }
     public Car getCarPlayer() {
         return this.car;
@@ -14,5 +15,9 @@ public class Player {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void destroyPlayer(){
+        this.car.destroy();
     }
 }

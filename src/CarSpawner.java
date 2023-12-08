@@ -3,14 +3,16 @@ import java.util.Random;
 
 public class CarSpawner {
     private ArrayList<Car> cars;
-    private CollisionSystem collisionSystem;
     private Player player;
+    private Game game;
 
-    public CarSpawner(Player player, CollisionSystem collisionSystem) {
-        this.collisionSystem = collisionSystem;
+    public CarSpawner(Player player, Game game) {
+        this.game = game;
         this.player = player;
 
         this.cars = new ArrayList<Car>();
+        this.addCar();
+        this.addCar();
         this.addCar();
         this.addCar();
         this.addCar();
@@ -46,7 +48,7 @@ public class CarSpawner {
         }
     }
 
-    
+
     public void tik(){
         Car carWhichLeftScreen = null;
         for (Car car : this.cars) {
@@ -68,13 +70,21 @@ public class CarSpawner {
                     carWhichLeftScreen = car;
                 }
             }
-            this.collisionSystem.detectCollision(car, player);
+            CollisionSystem.detectCollision(car, player, this.game);
         }
         if(carWhichLeftScreen != null){
+            this.game.updateScore();
+
             carWhichLeftScreen.destroy();
             this.cars.remove(carWhichLeftScreen);
-            carWhichLeftScreen = null;
             this.addCar();
         }
+    }
+
+    public void destroyCars(){
+        for (Car car : this.cars) {
+            car.destroy();
+        }
+        this.cars.clear();
     }
 }

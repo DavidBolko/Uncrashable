@@ -3,22 +3,16 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 public class MainMenu{
-
     private JFrame window;
     private JPanel controlsPanel;
-    private MainWindow mainWindow;
 
-    public MainMenu(MainWindow mainWindow){
+    public MainMenu(Root root){
         FlatDarkLaf.setup();
-
-        this.mainWindow = mainWindow;
 
         this.window = new JFrame();
         this.window.setLayout(new GridBagLayout());
@@ -36,7 +30,7 @@ public class MainMenu{
         imageComponent.setIcon(new ImageIcon(image));
         imageComponent.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        MenuControls menuControls = new MenuControls(this.controlsPanel, this.mainWindow);
+        MenuControls menuControls = new MenuControls(this.controlsPanel, root);
 
         window.getContentPane().setBackground(Color.BLACK);
         window.add(imageComponent);

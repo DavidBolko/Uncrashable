@@ -1,0 +1,7 @@
+John:400:Silver
+Fero:100:Golden
+Fero:800:Golden
+Fero:800:Golden
+Fero:800:Golden
+Fero:800:Golden
+Fero:800:Golden

@@ -5,13 +5,15 @@ import java.awt.event.ActionListener;
 
 public class MenuControls implements ActionListener {
     private JPanel controlsPanel;
-    private MainWindow mainWindow;
+
+    private JComboBox<Difficulty> difficultyOptions;
+    private Root root;
     private JButton startButton;
     private JButton leaderboardButton;
     private JButton quitButton;
-    public MenuControls(JPanel controlsPanel, MainWindow mainWindow) {
+    public MenuControls(JPanel controlsPanel, Root root) {
         this.controlsPanel = controlsPanel;
-        this.mainWindow = mainWindow;
+        this.root = root;
 
         this.startButton = new JButton("Start");
         this.leaderboardButton = new JButton("Leadeboard");
@@ -29,6 +31,12 @@ public class MenuControls implements ActionListener {
         quitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         quitButton.addActionListener(this);
 
+
+
+        this.difficultyOptions = new JComboBox<>(Difficulty.values());
+        this.difficultyOptions.addActionListener(this);
+        this.controlsPanel.add(difficultyOptions);
+        this.controlsPanel.add(Box.createVerticalStrut(2));
         this.controlsPanel.add(startButton);
         this.controlsPanel.add(Box.createVerticalStrut(2));
         this.controlsPanel.add(leaderboardButton);
@@ -39,8 +47,11 @@ public class MenuControls implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == startButton){
-            System.out.println("dasd");
-            mainWindow.setGameRunning(true);
+            if (!root.isGameRunning()){
+                root.runGame((Difficulty)difficultyOptions.getSelectedItem());
+            } else{
+                root.run();
+            }
         } else if (e.getSource() == quitButton) {
             System.exit(0);
         }

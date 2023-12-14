@@ -3,14 +3,16 @@ import java.util.Random;
 
 public class CarSpawner {
     private ArrayList<Car> cars;
-    private CollisionSystem collisionSystem;
     private Player player;
+    private Game game;
 
-    public CarSpawner(Player player, CollisionSystem collisionSystem) {
-        this.collisionSystem = collisionSystem;
+    public CarSpawner(Player player, Game game) {
+        this.game = game;
         this.player = player;
 
         this.cars = new ArrayList<Car>();
+        this.addCar();
+        this.addCar();
         this.addCar();
         this.addCar();
         this.addCar();
@@ -47,87 +49,41 @@ public class CarSpawner {
     }
 
 
-    /*
-    public void randomizeCars(){
-        Random random = new Random();
-        this.cars.add(new Car(random.nextInt(400)-400, false, random.nextInt(3)+1));
-        for (int i = 1; i < 3; i++) {
-            int nextPosY = random.nextInt(350) - 400;
-            int nextLane = random.nextInt(3)+1;
-
-            Car firstCar = this.cars.get(0);
-
-            if(firstCar.getRoadLane() == nextLane){
-                if(Math.abs(firstCar.getPosY() - nextPosY) < 100){
-                    System.out.println("Prve auto zavadzalo" + nextPosY);
-                    if((nextPosY + 180) + 400 < 450){
-                        nextPosY += 180;
-                    }
-                    else{
-                        System.out.println("Zmena pruhu");
-                        if(nextLane == 3){
-                            nextLane--;
-                        }
-                        else{
-                            nextLane++;
-                        }
-                    }
-                }
-            }
-            if(i > 1){
-                if(this.cars.get(1).getRoadLane() == nextLane){
-                    if(Math.abs(this.cars.get(1).getPosY() - nextPosY) < 100){
-                        System.out.println("Druhe auto zavadzalo" + nextPosY);
-                        if((nextPosY + 180) + 400 < 450){
-                            nextPosY += 180;
-                        }
-                        else{
-                            System.out.println("Zmena pruhu");
-                            if(nextLane == 3){
-                                nextLane--;
-                            }
-                            else{
-                                nextLane++;
-                            }
-                        }
-                    }
-                }
-            }
-
-            this.cars.add(new Car(nextPosY, false, nextLane));
-        }
-    }
-    */
-
-
     public void tik(){
         Car carWhichLeftScreen = null;
         for (Car car : this.cars) {
             if(car.getRoadLane() == 1){
-                car.moveCarY(4);
+                car.moveCarY((int)( 8 * this.game.getDifficulty().getValue()));
                 if(car.getPosY()>600){
                     carWhichLeftScreen = car;
                 }
             }
             else if(car.getRoadLane() == 2){
-                car.moveCarY(8);
+                car.moveCarY((int)( 6 * this.game.getDifficulty().getValue()));
                 if(car.getPosY()>600){
                     carWhichLeftScreen = car;
                 }
             }
             else{
-                car.moveCarY(6);
+                car.moveCarY((int)( 4 * this.game.getDifficulty().getValue()));
                 if(car.getPosY()>600){
                     carWhichLeftScreen = car;
                 }
             }
-            this.collisionSystem.detectCollision(car, player);
+            CollisionSystem.detectCollision(car, player, this.game);
         }
         if(carWhichLeftScreen != null){
+            this.game.updateScore();
+
             carWhichLeftScreen.destroy();
             this.cars.remove(carWhichLeftScreen);
-            carWhichLeftScreen = null;
             this.addCar();
+        }
+    }
+
+    public void destroyCars(){
+        for (Car car : this.cars) {
+            car.destroy();
         }
     }
 }

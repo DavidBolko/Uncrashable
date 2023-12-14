@@ -1,9 +1,18 @@
 public enum Difficulty {
     EASY (1),
-    MEDIUM (2),
-    HIGH (3),
+    MEDIUM (1.5),
+    HIGH (2),
     ;
 
-    Difficulty(int i) {
+    private final double value;
+
+    Difficulty(double value) {
+        this.value = value;
     }
+
+    public double getValue() {
+        return this.value;
+    }
+
+
 }

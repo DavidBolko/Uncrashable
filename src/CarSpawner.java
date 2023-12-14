@@ -53,19 +53,19 @@ public class CarSpawner {
         Car carWhichLeftScreen = null;
         for (Car car : this.cars) {
             if(car.getRoadLane() == 1){
-                car.moveCarY(4);
+                car.moveCarY((int)( 8 * this.game.getDifficulty().getValue()));
                 if(car.getPosY()>600){
                     carWhichLeftScreen = car;
                 }
             }
             else if(car.getRoadLane() == 2){
-                car.moveCarY(8);
+                car.moveCarY((int)( 6 * this.game.getDifficulty().getValue()));
                 if(car.getPosY()>600){
                     carWhichLeftScreen = car;
                 }
             }
             else{
-                car.moveCarY(6);
+                car.moveCarY((int)( 4 * this.game.getDifficulty().getValue()));
                 if(car.getPosY()>600){
                     carWhichLeftScreen = car;
                 }
@@ -85,6 +85,5 @@ public class CarSpawner {
         for (Car car : this.cars) {
             car.destroy();
         }
-        this.cars.clear();
     }
 }

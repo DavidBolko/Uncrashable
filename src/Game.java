@@ -12,7 +12,6 @@ public class Game {
 
     public Game(Root root) {
         this.root = root;
-        this.manager = new Manager();
     }
 
     public void startGame(){
@@ -20,6 +19,7 @@ public class Game {
         this.player = new Player();
         this.carSpawner = new CarSpawner(player, this);
         this.userInterface = new UserInterface(this);
+        this.manager = new Manager();
 
 
         System.out.println(this.difficulty);
@@ -36,8 +36,7 @@ public class Game {
     public void gameOver(){
         this.userInterface.showGameOverText();
 
-        manager.stopManagingObject(carSpawner);
-        manager.stopManagingObject(player.getCarPlayer());
+        this.endGame();
     }
 
     public void updateScore(){
@@ -50,15 +49,26 @@ public class Game {
     }
 
     public void endGame(){
+        this.manager.stopManagingObject(this);
         this.manager.stopManagingObject(carSpawner);
         this.manager.stopManagingObject(player.getCarPlayer());
-        this.manager.stopManagingObject(this);
-        this.manager = null;
 
+        root.run();
         player.destroyPlayer();
         carSpawner.destroyCars();
         road.destroyRoad();
         userInterface.destroyUI();
-        root.run();
+    }
+
+    public boolean gameRunning(){
+        return root.isGameRunning();
+    }
+
+    public Manager getManager() {
+        return this.manager;
+    }
+
+    public Difficulty getDifficulty() {
+        return this.difficulty;
     }
 }

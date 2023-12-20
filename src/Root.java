@@ -1,7 +1,8 @@
 import com.formdev.flatlaf.FlatDarkLaf;
-
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
 
 public class Root {
     private MainMenu mainMenu;
@@ -17,6 +18,7 @@ public class Root {
         this.rootWindow.setMinimumSize(new Dimension(800, 600));
         this.rootWindow.setMaximumSize(new Dimension(800, 600));
         this.rootWindow.getContentPane().setBackground(Color.black);
+        this.rootWindow.setAutoRequestFocus(false);
 
         this.isGameRunning = false;
         this.mainMenu = new MainMenu(this);
@@ -29,14 +31,15 @@ public class Root {
         this.isGameRunning = false;
         this.rootWindow.remove(this.leaderBoard.getLeaderBoard());
         this.rootWindow.add(this.mainMenu.getMainMenu());
-        this.rootWindow.validate();
+        this.rootWindow.revalidate();
         this.rootWindow.repaint();
         this.rootWindow.setVisible(true);
     }
     public void showLeaders(){
         this.rootWindow.remove(this.mainMenu.getMainMenu());
+        this.leaderBoard.updateLeaderBoard();
         this.rootWindow.add(this.leaderBoard.getLeaderBoard());
-        this.rootWindow.validate();
+        this.rootWindow.revalidate();
         this.rootWindow.repaint();
     }
     public void runGame(Difficulty difficulty){

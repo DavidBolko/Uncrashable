@@ -15,7 +15,6 @@ public class CarSpawner {
         this.addCar();
         this.addCar();
         this.addCar();
-        this.addCar();
     }
 
     public void addCar(){
@@ -84,6 +83,6 @@ public class CarSpawner {
     public void destroyCars(){
         for (Car car : this.cars) {
             car.destroy();
-        }
+        };
     }
 }

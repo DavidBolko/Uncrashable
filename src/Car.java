@@ -39,10 +39,6 @@ public class Car {
         carObject.makeVisible();
     }
 
-    public Image getCarObject() {
-        return this.carObject;
-    }
-
     public int getPosX() {
         return this.posX;
     }
@@ -94,6 +90,10 @@ public class Car {
 
     public void setRoadLane(int lane){
         this.roadLane = lane;
+    }
+
+    public void explode(){
+        this.carObject.changeImage("src/resources/explosion.png");
     }
 
     public void destroy(){

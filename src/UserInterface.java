@@ -8,7 +8,7 @@ public class UserInterface {
     public UserInterface(Game game) {
 
         this.game = game;
-        this.gameOverText = new TextBlock("GAME OVER!", 250, 100);
+        this.gameOverText = new TextBlock("GAME OVER!", 300, 100);
 
         this.scoreDisplay = new TextBlock(String.valueOf(this.game.getPlayer().getScore()), 750, 50);
         this.scoreDisplay.changeFont("Serif", FontStyle.BOLD, 30);
@@ -26,9 +26,8 @@ public class UserInterface {
         scoreDisplay.changeText(String.valueOf(this.game.getPlayer().getScore()));
     }
 
-    public void destroyUI(){
+    public void hideScore(){
         this.scoreDisplay.makeInvisible();
-        this.gameOverText.makeInvisible();
     }
 
 }

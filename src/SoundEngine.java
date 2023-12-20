@@ -3,7 +3,6 @@ import java.io.File;
 import java.io.IOException;
 
 public class SoundEngine {
-
     public static void playExplosion(){
         File audioFile = new File("src/resources/explosion.wav");
         if(audioFile.exists()){
@@ -12,14 +11,9 @@ public class SoundEngine {
                 Clip clip = AudioSystem.getClip();
                 clip.open(audio);
                 clip.start();
-            } catch (UnsupportedAudioFileException e) {
-                throw new RuntimeException(e);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (LineUnavailableException e) {
+            } catch (UnsupportedAudioFileException | LineUnavailableException | IOException e) {
                 throw new RuntimeException(e);
             }
-
         }
     }
 }

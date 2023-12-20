@@ -25,7 +25,7 @@ public class Game {
         System.out.println(this.difficulty);
         manager.manageObject(carSpawner);
         manager.manageObject(this);
-        manager.manageObject(player.getCarPlayer());
+        manager.manageObject(player.getCar());
     }
 
     public void setDifficulty(Difficulty difficulty){
@@ -34,38 +34,39 @@ public class Game {
 
 
     public void gameOver(){
-        this.userInterface.showGameOverText();
+        this.manager.stopManagingObject(this);
+        this.manager.stopManagingObject(carSpawner);
+        this.manager.stopManagingObject(player.getCar());
 
-        this.endGame();
+        new Thread(()->{
+            try {
+                Thread.sleep(1000);
+
+                player.destroyPlayer();
+                carSpawner.destroyCars();
+                road.destroyRoad();
+                this.userInterface.hideScore();
+
+                this.userInterface.showGameOverText();
+
+                FileManager.savePlayer(player.getInformation());
+                root.run();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            Thread.currentThread().interrupt();
+        }).start();
     }
+
 
     public void updateScore(){
         this.player.setScore(this.player.getScore()+1);
+        System.out.println(player.getScore());
         this.userInterface.updateScore();
     }
 
     public Player getPlayer() {
         return player;
-    }
-
-    public void endGame(){
-        this.manager.stopManagingObject(this);
-        this.manager.stopManagingObject(carSpawner);
-        this.manager.stopManagingObject(player.getCarPlayer());
-
-        root.run();
-        player.destroyPlayer();
-        carSpawner.destroyCars();
-        road.destroyRoad();
-        userInterface.destroyUI();
-    }
-
-    public boolean gameRunning(){
-        return root.isGameRunning();
-    }
-
-    public Manager getManager() {
-        return this.manager;
     }
 
     public Difficulty getDifficulty() {

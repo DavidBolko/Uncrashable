@@ -1,7 +1,8 @@
-John:400:Silver
-Fero:100:Golden
-Fero:800:Golden
-Fero:800:Golden
-Fero:800:Golden
-Fero:800:Golden
-Fero:800:Golden
+TheSillus:0:BRONZE
+Ondrej:0:BRONZE
+df:0:BRONZE
+TheSillus:0:BRONZE
+TheSillus:12:BRONZE
+gsdf:4:BRONZE
+fds:7:BRONZE
+awdawd:4:BRONZE

@@ -1,4 +1,4 @@
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 public class Player {
     private Car car;
@@ -13,7 +13,7 @@ public class Player {
             this.name = JOptionPane.showInputDialog("Input your username");
         }
     }
-    public Car getCarPlayer() {
+    public Car getCar() {
         return this.car;
     }
 
@@ -27,5 +27,24 @@ public class Player {
 
     public void destroyPlayer(){
         this.car.destroy();
+    }
+
+    public String getInformation(){
+        String medal;
+        if(this.score >= 0 && this.score <= 20){
+            medal = "BRONZE";
+        } else if(this.score > 20 && this.score <= 50){
+            medal = "SILVER";
+        }
+        else if(this.score > 50 && this.score <= 100){
+            medal = "GOLD";
+        }
+        else if(this.score > 100 && this.score <= 200){
+            medal = "EMERALD";
+        }
+        else{
+            medal = "DIAMOND";
+        }
+        return String.format("%s:%d:%s", this.name, this.score, medal);
     }
 }
